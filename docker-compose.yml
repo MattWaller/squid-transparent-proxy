@@ -1,0 +1,17 @@
+version: "3"
+services:
+  squid-vpn-proxy:
+    image: waller511/squid-transparent-proxy
+    environment:
+      - STARTING_PORT=${STARTING_PORT}
+      - ENDING_PORT=${ENDING_PORT}
+      - SQUID_USER=${SQUID_USER}
+      - SQUID_PASS=${SQUID_PASS}
+    ports:
+      - "${STARTING_PORT}-${ENDING_PORT}:"${STARTING_PORT}-${ENDING_PORT}"
+    volumes:
+      - ./log:/var/log/
+      - ./conf/squid.conf:/etc/squid/squid.conf
+      - ./cache:/var/cache
+      - ./cert:/etc/squid-cert
+    restart: always
